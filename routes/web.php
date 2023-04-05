@@ -1,18 +1,24 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Pet;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
+// All pets
 Route::get('/', function () {
-    return view('welcome');
+    return view('pets', [
+        'heading' => 'Aangeboden Dieren',
+        'pets' => Pet::all()
+    ]);
+});
+
+// Single pet
+Route::get('/pets/{id}', function ($id) {
+    return view('pet', [
+        'pet' => Pet::find($id)
+    ]);
+});
+
+Route::get('/layout', function () {
+    return view('components.layout');
 });
